@@ -1,4 +1,5 @@
 # **StudentManagementSys**
+![Screenshot](Screenshots/Screenshot1.png)
 
 ## 📋 Overview  
 This web application, built with **ASP.NET MVC**, provides a seamless experience for managing **courses, instructors, and trainees**. The project demonstrates the practical application of key **software engineering principles and technologies** like **Entity Framework Core, LINQ, SQL Server**, and **Repository/Unit of Work design patterns**.
