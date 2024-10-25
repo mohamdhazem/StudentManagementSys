@@ -1,0 +1,64 @@
+﻿@model LoginUserViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!-- Page Title -->
+<h1 class="text-center my-4">Login</h1>
+
+<!-- Centered Card for Login Form -->
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-lg">
+            <div class="card-body p-5">
+
+                <!-- Card Title -->
+                <h2 class="card-title text-center mb-4">Welcome Back</h2>
+
+                <!-- Login Form -->
+                <form asp-action="SaveLogin">
+                    <!-- Validation Summary -->
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <!-- Username Field -->
+                    <div class="form-group mb-4">
+                        <label asp-for="Name" class="control-label visually-hidden"></label>
+                        <input asp-for="Name" class="form-control form-control-lg" placeholder="Username" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group mb-4">
+                        <label asp-for="PassWord" class="control-label visually-hidden"></label>
+                        <input asp-for="PassWord" type="password" class="form-control form-control-lg" placeholder="Password" />
+                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="form-group form-check mb-4">
+                        <input class="form-check-input" asp-for="RememberMe" id="rememberMeCheck" />
+                        <label class="form-check-label" for="rememberMeCheck">
+                            Remember Me
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group d-grid">
+                        <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" />
+                    </div>
+                </form>
+            </div>
+
+            <!-- Optional Footer -->
+            <div class="card-footer text-center py-3">
+                <small>Don't have an account? <a href="/Account/Register" class="text-primary">Sign up here</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

@@ -1,0 +1,64 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Add";
+    SelectList depts = new SelectList(ViewBag.depts, "Id", "name");
+}
+
+<h1 class="text-center mb-4" style="color: #3C8DBC;">Add Course</h1>
+
+<div class="container p-5" style="background-color: #F3F6FA; border-radius: 10px; max-width: 600px;">
+    <form asp-action="SaveAdd" asp-controller="Course" method="post" novalidate class="border p-4 rounded shadow-lg">
+        <!-- Course Name -->
+        <div class="mb-4">
+            <label asp-for="name" class="form-label fw-bold" style="color: #2F4F4F;">Course Name</label>
+            <input class="form-control" asp-for="name" placeholder="Enter course name" style="border-color: #87CEEB;" />
+            <span asp-validation-for="name" class="text-danger"></span>
+        </div>
+
+        <!-- Minimum Degree -->
+        <div class="mb-4">
+            <label asp-for="minDegree" class="form-label fw-bold" style="color: #2F4F4F;">Minimum Degree</label>
+            <input class="form-control" asp-for="minDegree" placeholder="Enter minimum degree" style="border-color: #87CEEB;" />
+            <span asp-validation-for="minDegree" class="text-danger"></span>
+        </div>
+
+        <!-- Degree -->
+        <div class="mb-4">
+            <label asp-for="degree" class="form-label fw-bold" style="color: #2F4F4F;">Degree</label>
+            <input class="form-control" asp-for="degree" placeholder="Enter degree" style="border-color: #87CEEB;" />
+            <span asp-validation-for="degree" class="text-danger"></span>
+        </div>
+
+        <!-- Hours -->
+        <div class="mb-4">
+            <label asp-for="hours" class="form-label fw-bold" style="color: #2F4F4F;">Hours</label>
+            <input class="form-control" asp-for="hours" placeholder="Enter number of hours" style="border-color: #87CEEB;" />
+            <span asp-validation-for="hours" class="text-danger"></span>
+        </div>
+
+        <!-- Department Dropdown -->
+        <div class="mb-4">
+            <label asp-for="departmentId" class="form-label fw-bold" style="color: #2F4F4F;">Department</label>
+            <select asp-for="departmentId" class="form-select" style="border-color: #87CEEB;">
+                <option value="0">--Select Department--</option>
+                @foreach (var dept in depts)
+                {
+                    <option value="@dept.Value">@dept.Text</option>
+                }
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="background-color: #5CB85C; border: none;">Create</button>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

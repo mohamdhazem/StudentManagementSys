@@ -1,0 +1,56 @@
+﻿@model TraineeWithDepts
+
+<h1 class="text-center mb-4" style="color: #3C8DBC;">Add Trainee</h1>
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow-lg border-0" style="background-color: #F3F6FA; border-radius: 10px;">
+        <div class="card-body p-4">
+            <form asp-action="SaveAdd" asp-controller="Trainee" enctype="multipart/form-data" novalidate>
+
+                <div class="mb-4">
+                    <label asp-for="name" class="form-label fw-bold" style="color: #2F4F4F;">Trainee Name</label>
+                    <input class="form-control" asp-for="name" required placeholder="Enter trainee's name" style="border-color: #87CEEB; border-radius: 5px;" />
+                    <span asp-validation-for="name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label for="realImage" class="form-label fw-bold" style="color: #2F4F4F;">Profile Picture</label>
+                    <input class="form-control" type="file" name="realImage" id="realImage" accept="image/*" required style="border-color: #87CEEB; border-radius: 5px;" />
+                    <span class="text-muted" style="font-size: 0.875rem;">Upload a clear profile picture.</span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="address" class="form-label fw-bold" style="color: #2F4F4F;">Address</label>
+                    <input class="form-control" asp-for="address" required placeholder="Enter address" style="border-color: #87CEEB; border-radius: 5px;" />
+                    <span asp-validation-for="address" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="grade" class="form-label fw-bold" style="color: #2F4F4F;">Grade</label>
+                    <input class="form-control" asp-for="grade" type="text" required placeholder="Enter grade" style="border-color: #87CEEB; border-radius: 5px;" />
+                    <span asp-validation-for="grade" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="departmentId" class="form-label fw-bold" style="color: #2F4F4F;">Department</label>
+                    <select asp-for="departmentId" class="form-select" asp-items="@(new SelectList(Model.departments, "Id", "name"))" style="border-color: #87CEEB; border-radius: 5px;">
+                        <option value="">--Select Department--</option>
+                    </select>
+                    <span asp-validation-for="departmentId" class="text-danger"></span>
+                </div>
+
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary btn-lg px-4" style="background-color: #5CB85C; border: none;">Create Trainee</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-4 d-flex justify-content-center" style="margin-bottom:20px">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

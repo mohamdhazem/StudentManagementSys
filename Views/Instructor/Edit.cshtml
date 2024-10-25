@@ -1,0 +1,69 @@
+﻿@model InstructorDeptsCrs
+
+<h1 class="text-center mb-4" style="color: #3C8DBC;">Edit Instructor</h1>
+
+<div class="container p-5" style="background-color: #F3F6FA; border-radius: 10px; max-width: 600px;">
+    <form action="/Instructor/SaveEdit/@Model.id" method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-lg">
+        <div class="mb-4">
+            <label for="name" class="form-label fw-bold" style="color: #2F4F4F;">Name</label>
+            <input class="form-control" type="text" name="name" id="name" value="@Model?.name" required style="border-color: #87CEEB;" />
+        </div>
+
+        <div class="mb-4">
+            <label for="image" class="form-label fw-bold" style="color: #2F4F4F;">Image</label>
+            <input class="form-control" type="file" name="image" id="image" accept="image/*" />
+        </div>
+
+        <div class="mb-4">
+            <label for="address" class="form-label fw-bold" style="color: #2F4F4F;">Address</label>
+            <input class="form-control" type="text" name="address" id="address" value="@Model?.address" required style="border-color: #87CEEB;" />
+        </div>
+
+        <div class="mb-4">
+            <label for="salary" class="form-label fw-bold" style="color: #2F4F4F;">Salary</label>
+            <input class="form-control" type="text" name="salary" id="salary" value="@Model?.salary" required style="border-color: #87CEEB;" />
+        </div>
+
+        <div class="mb-4">
+            <label for="departmentId" class="form-label fw-bold" style="color: #2F4F4F;">Department</label>
+            <select name="departmentId" id="departmentId" class="form-select" style="border-color: #87CEEB;">
+                @foreach (var dept in Model.departments)
+                {
+                    if (Model.departmentId == dept.Id)
+                    {
+                        <option value="@dept.Id" selected>@dept.name</option>
+                    }
+                    else
+                    {
+                        <option value="@dept.Id">@dept.name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="courseId" class="form-label fw-bold" style="color: #2F4F4F;">Course</label>
+            <select name="courseId" id="courseId" class="form-select" style="border-color: #87CEEB;">
+                @foreach (var crs in Model.courses)
+                {
+                    if (Model.courseId == crs.id)
+                    {
+                        <option value="@crs.id" selected>@crs.name</option>
+                    }
+                    else
+                    {
+                        <option value="@crs.id">@crs.name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="d-grid gap-2">
+            <input type="submit" class="btn btn-success btn-lg" value="Edit" style="background-color: #5CB85C; border: none;" />
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
+            <a href="/Instructor/Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>

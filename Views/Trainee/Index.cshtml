@@ -1,0 +1,87 @@
+﻿@model List<Trainee>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-left" style="font-size: 2rem; color: #333;">Trainees</h1>
+
+        <!-- Search Form -->
+        <div class="form-wrapper" style="max-width: 600px; width: 100%;">
+            <form method="post" action="/Trainee/Search" class="d-flex shadow-sm p-2 bg-light rounded">
+                <input type="text" name="name" class="form-control me-2" placeholder="Enter trainee name" style="border-radius: 5px;" />
+                <button type="submit" class="btn btn-primary" style="border-radius: 5px;">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Trainee Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle text-center shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Address</th>
+                    <th>Grade</th>
+                    <th>Department Id</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int iterator = 1;
+                }
+                @foreach (var trainee in Model)
+                {
+                    <tr>
+                        <td>@iterator</td>
+                        <td>@trainee.name</td>
+                        <td>
+                            <img src="@(string.IsNullOrEmpty(trainee.image) || !trainee.image.Contains("images") ? Url.Content("~/images/default-avatar.png") : trainee.image)"
+                                 alt="Image of @trainee.name"
+                                 class="img-fluid rounded-circle shadow-sm"
+                                 style="max-width: 80px; height: auto;" />
+                        </td>
+                        <td>@trainee.address</td>
+                        <td>@trainee.grade</td>
+                        <td>@trainee.departmentId</td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td class="justify-content-center">
+                                <!-- Details Icon -->
+                                <a href="/Trainee/GetDetails/@trainee.id" class="action-icon text-primary me-1" title="Details" aria-label="View Details">
+                                    <i class="fas fa-info-circle fa-lg"></i>
+                                </a>
+
+                                <!-- Delete Icon -->
+                                <form asp-controller="Trainee" asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this trainee?');">
+                                    <input type="hidden" name="id" value="@trainee.id" />
+                                    <button type="submit" class="btn p-0 border-0 action-icon delete text-danger" title="Delete" aria-label="Delete Trainee">
+                                        <i class="fas fa-trash-alt fa-lg" style="margin: 7px;"></i>
+                                    </button>
+                                </form>
+                                <style>
+                                    .action-icon {
+                                        font-size: 0.8rem; /* Adjust the size as needed */
+                                    }
+                                </style>
+                            </td>
+                        }
+                    </tr>
+                    iterator++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Floating Action Button -->
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/Trainee/Add" class="btn btn-primary rounded-circle shadow-lg" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 1000;">
+            <i class="fas fa-plus"></i>
+        </a>
+    }
+</div>

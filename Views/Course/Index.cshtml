@@ -1,0 +1,61 @@
+﻿@model List<Course>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-left">Courses</h1>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Min degree</th>
+            <th>Max degree</th>
+            <th>Hours</th>
+            <th>DepartmentId</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>                
+            }
+        </tr>
+    </thead>
+    @{
+        int iterator = 1;
+    }
+    @foreach (var crs in Model)
+    {
+        <tr>
+            <td>@iterator</td>
+            <td>@crs.name</td>
+            <td>@crs.minDegree</td>
+            <td>@crs.degree</td>
+            <td>@crs.hours</td>
+            <td>@crs.departmentId</td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a href="/Course/Edit/@crs.id" class="text-secondary me-2" style="padding:5px 8px" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                    <form asp-controller="Course" asp-action="Delete" method="post" class="d-inline" style="padding:5px 8px" onsubmit="return confirm('Are you sure you want to delete this Course?');">
+                        <input type="hidden" name="id" value="@crs.id" />
+                        <button type="submit" class="btn p-0 border-0 text-danger" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            }
+        </tr>
+        iterator++;
+    }
+</table>
+
+@if (User.IsInRole("Admin"))
+{
+<div class="mt-4 d-flex justify-content-center">
+    <a href="/Course/Add" class="btn btn-primary"> AddCourse </a>
+</div>    
+}

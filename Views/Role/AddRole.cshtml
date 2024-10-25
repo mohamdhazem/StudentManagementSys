@@ -1,0 +1,49 @@
+﻿@model RoleData
+
+@{
+    ViewData["Title"] = "Add Role";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="font-size: 2rem; color: #333;">Add New Role</h1>
+    <!-- Card Wrapper for Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm" style="border-radius: 10px;">
+                <div class="card-body">
+                    <form asp-action="SaveRole">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="RoleName" class="form-label" style="font-weight: 500;">Role Name</label>
+                            <input asp-for="RoleName" class="form-control" placeholder="Enter role name" style="border-radius: 5px;" />
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-primary btn-lg" style="width: 100%; border-radius: 5px;" />
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Card Footer with Back to List -->
+                <div class="card-footer text-center" style="background-color: #f8f9fa;">
+                    <a asp-action="Index" class="btn btn-link" style="color: #007bff;">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    /* Hover effect for primary button */
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>

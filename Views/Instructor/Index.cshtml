@@ -1,0 +1,83 @@
+﻿@model List<Instructor>
+
+@{
+    SelectList depts = new SelectList(ViewBag.depts, "Id", "name");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-left">Instructors</h1>
+
+    <!-- Search Form -->
+    <div class="form-wrapper" style="max-width: 600px; width: 100%;">
+        <form method="post" action="/Instructor/Search" class="d-flex shadow-sm p-2 bg-light rounded">
+            <select name="DeptId" asp-items="depts" class="form-select me-2" style="max-width: 150px;">
+                <option value="">All Departments</option>
+            </select>
+            <input type="text" name="name" class="form-control me-2" placeholder="Enter instructor name" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+<!-- Instructors Table -->
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Department Id</th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th>Actions</th>                    
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int iterator = 1;
+            }
+            @foreach (var Ins in Model)
+            {
+                <tr>
+                    <td>@iterator</td>
+                    <td>@Ins.name</td>
+                    <td>@Ins.salary</td>
+                    <td>@Ins.departmentId</td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td class="d-flex justify-content-center">
+                            <!-- Details Icon -->
+                            <a href="/Instructor/GetDetails/@Ins.id" class="text-primary me-2 " style="padding:5px 8px" title="Details">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+
+                            <!-- Edit Icon -->
+                            <a href="/Instructor/Edit/@Ins.id" class="text-secondary me-2" style="padding:5px 8px" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Delete Icon -->
+                            <form asp-controller="Instructor" asp-action="Delete" method="post" class="d-inline" style="padding:5px 8px" onsubmit="return confirm('Are you sure you want to delete this instructor?');">
+                                <input type="hidden" name="id" value="@Ins.id" />
+                                <button type="submit" class="btn p-0 border-0 text-danger" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+                iterator++;
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Instructor Button -->
+@if (User.IsInRole("Admin"))
+{
+    <a href="/Instructor/Add" class="btn btn-primary rounded-circle shadow-lg" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 1000;">
+        <i class="fas fa-plus"></i>
+    </a>
+}
